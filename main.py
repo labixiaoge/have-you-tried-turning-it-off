@@ -23,6 +23,8 @@ def _validate(line: str) -> None:
         raise SystemExit(f"entry must be 1-199 characters, got {chars}")
     if line != line.strip():
         raise SystemExit("entry must not start or end with whitespace")
+    if "\n" in line or "\r" in line:
+        raise SystemExit("entry must be a single line")
 
 
 def main() -> None:
