@@ -16,13 +16,17 @@ LINE = (
 OUTPUT_PATH = os.environ.get("ENTRY_OUTPUT", "/output/entry.txt")
 
 
-def main() -> None:
+def _validate(line: str) -> None:
     # Gate: the line must be 1-199 characters (the competition's entry rule).
-    chars = len(LINE)
+    chars = len(line)
     if chars < 1 or chars > 199:
         raise SystemExit(f"entry must be 1-199 characters, got {chars}")
-    if LINE != LINE.strip():
+    if line != line.strip():
         raise SystemExit("entry must not start or end with whitespace")
+
+
+def main() -> None:
+    _validate(LINE)
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         f.write(LINE)
